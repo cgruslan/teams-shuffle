@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teams Shuffle</title>
+  <link rel="stylesheet" href="//unpkg.com/purecss@1.0.0/build/pure-min.css">
+  <style>
+    .app { margin: 3em auto 1em; max-width: 32em; }
+    .players-list { margin-top: 2em; }
+    .mode-buttons { margin-bottom: 1em; }
+    .table-wrapper { margin-bottom: 3em; }
+    .table-wrapper button { width: 100%; }
+
+    table {
+      margin-bottom: 1em;
+      width: 100%;
+      max-width: 100%;
+      table-layout: fixed;
+    }
+
+    table tr td {
+      width: 50%;
+      white-space: nowrap;
+      overflow: hidden !important;
+      text-overflow: ellipsis;
+    }
+
+    textarea { margin-bottom: 1em; }
+  </style>
+</head>
+<body>
+  <div class="app" data-controller="shuffler">
+    <form class="pure-form" data-target="shuffler.form" data-action="shuffler#handleSubmit">
+      <fieldset>
+        <legend>Settings</legend>
+        <div class="mode-buttons">
+          <label for="3vs3" class="pure-radio">
+            <input id="3vs3" type="radio" name="gameMode" value="3vs3" checked>
+            3 vs 3
+          </label>
+          <label for="5vs5" class="pure-radio">
+            <input id="5vs5" type="radio" name="gameMode" value="5vs5">
+            5 vs 5
+          </label>
+          <label for="just3" class="pure-radio">
+            <input id="just3" type="radio" name="gameMode" value="just3">
+            3
+          </label>
+          <label for="just5" class="pure-radio">
+            <input id="just5" type="radio" name="gameMode" value="just5">
+            5
+          </label>
+        </div>
+        <label for="keep-first" class="pure-checkbox">
+          <input id="keep-first" type="checkbox" name="keepFirst" checked>
+          Do not move the first player
+        </label>
+        <div class="players-list">
+          <textarea class="pure-input-1" name="players" placeholder="Players list" rows="6" data-target="shuffler.textarea" required></textarea>
+        </div>
+        <button type="submit" class="pure-button pure-input-1 pure-button-primary">Shuffle</button>
+      </fieldset>
+    </form>
+
+    <div class="table-wrapper" data-target="shuffler.result" hidden>
+      <table class="pure-table pure-table-striped">
+        <thead>
+          <tr>
+            <th>Team 1</th>
+            <th>Team 2</th>
+          </tr>
+        </thead>
+        <tbody data-target="shuffler.tbody"></tbody>
+      </table>
+      <button class="pure-button pure-input-1" data-action="shuffler#toggle">Back</button>
+    </div>
+  </div>
+
+  <script src="//unpkg.com/stimulus@1.1.1/dist/stimulus.umd.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
